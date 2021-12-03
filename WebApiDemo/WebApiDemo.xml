@@ -1,0 +1,50 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>WebApiDemo</name>
+    </assembly>
+    <members>
+        <member name="P:WebApiDemo.Config.Version">
+            <summary>
+            服务版本
+            </summary>
+        </member>
+        <member name="P:WebApiDemo.Config.VersionTime">
+            <summary>
+            服务发布时间
+            </summary>
+        </member>
+        <member name="P:WebApiDemo.Config.WebTitle">
+            <summary>
+            服务主题
+            </summary>
+        </member>
+        <member name="P:WebApiDemo.Config.SubSystemName">
+            <summary>
+            跨越访问
+            </summary>
+        </member>
+        <member name="P:WebApiDemo.Config.SwaggerUrl">
+            <summary>
+            访问url 默认未空字符串 全部请求可以访问
+            </summary>
+        </member>
+        <member name="T:WebApiDemo.Controllers.WeatherForecastController">
+            <summary>
+            测试测试测试
+            </summary>
+        </member>
+        <member name="M:WebApiDemo.Controllers.WeatherForecastController.#ctor(Microsoft.Extensions.Logging.ILogger{WebApiDemo.Controllers.WeatherForecastController})">
+            <summary>
+            初始化
+            </summary>
+            <param name="logger"></param>
+        </member>
+        <member name="M:WebApiDemo.Controllers.WeatherForecastController.Get">
+            <summary>
+            xxxxxx
+            </summary>
+            <returns></returns>
+        </member>
+    </members>
+</doc>
