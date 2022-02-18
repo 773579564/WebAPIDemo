@@ -55,7 +55,8 @@ namespace WebApiDemo
             });
 
             //支持 用户身份标识，请求对象
-            services.AddScoped<IHttpContextAccessor, HttpContextAccessor>();
+           // services.AddScoped<IHttpContextAccessor, HttpContextAccessor>();
+
 
             //表单提交限制
             services.Configure<Microsoft.AspNetCore.Http.Features.FormOptions>(options =>
@@ -91,14 +92,19 @@ namespace WebApiDemo
         /// <summary>
         /// 通过Autofac扩展服务注册功能，在ConfigureServices之后执行
         /// </summary>
-        /// <param name="builder"></param>
+        /// <param name="app"></param>
+        /// <param name="env"></param>
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
-            Console.WriteLine(env.IsDevelopment() ? "开发环境！" : "正式环境！");
             if (env.IsDevelopment())
             {
+                Console.WriteLine("开发环境！");
                 //开发人员异常页中间件 , 报告应用运行时错误
                 app.UseDeveloperExceptionPage();
+            }
+            else
+            {
+                Console.WriteLine("正式环境！");
             }
 
             //HTTPS 重定向中间件, 将 HTTP 请求重定向到 HTTPS
