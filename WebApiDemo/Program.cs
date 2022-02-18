@@ -17,6 +17,7 @@ namespace WebApiDemo
             IHostBuilder _IHostBuilder = CreateHostBuilder(args);
             IHost _IHost = _IHostBuilder.Build();
             _IHost.Run();
+            
         }
 
         public static IHostBuilder CreateHostBuilder(string[] args) =>
