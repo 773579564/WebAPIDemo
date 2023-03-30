@@ -62,45 +62,5 @@
             <param name="ex"></param>
             <returns></returns>
         </member>
-        <member name="M:WebApiDemo.Helper.JsonHelper.ObjToJson(System.Object)">
-            <summary>
-            对象序列化
-            </summary>
-            <param name="obj">对象</param>
-            <param name="isUseTextJson">是否使用textjson</param>
-            <returns>返回json字符串</returns>
-        </member>
-        <member name="M:WebApiDemo.Helper.JsonHelper.JsonToObj``1(System.String)">
-            <summary>
-            json反序列化obj
-            </summary>
-            <typeparam name="T">反序列类型</typeparam>
-            <param name="strJson">json</param>
-            <param name="isUseTextJson">是否使用textjson</param>
-            <returns>返回对象</returns>
-        </member>
-        <member name="M:WebApiDemo.Helper.JsonHelper.GetJSON``1(System.Object)">
-            <summary>
-            转换对象为JSON格式数据
-            </summary>
-            <typeparam name="T">类</typeparam>
-            <param name="obj">对象</param>
-            <returns>字符格式的JSON数据</returns>
-        </member>
-        <member name="M:WebApiDemo.Helper.SerializeHelper.Serialize(System.Object)">
-            <summary>
-            序列化
-            </summary>
-            <param name="item"></param>
-            <returns></returns>
-        </member>
-        <member name="M:WebApiDemo.Helper.SerializeHelper.Deserialize``1(System.Byte[])">
-            <summary>
-            反序列化
-            </summary>
-            <typeparam name="TEntity"></typeparam>
-            <param name="value"></param>
-            <returns></returns>
-        </member>
     </members>
 </doc>

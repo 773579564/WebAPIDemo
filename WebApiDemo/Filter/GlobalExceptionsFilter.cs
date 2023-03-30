@@ -1,10 +1,10 @@
 ﻿using System;
 using FY.Common;
+using FY.Common.Helper;
 using FY.Model.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
 using Microsoft.Extensions.Logging;
-using WebApiDemo.Helper;
 
 namespace WebApiDemo.Filter
 {

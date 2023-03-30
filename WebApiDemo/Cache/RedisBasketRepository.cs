@@ -5,9 +5,9 @@ using System;
 using StackExchange.Redis;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using System.Threading.Tasks;
-using WebApiDemo.Helper;
 using Microsoft.Extensions.Logging;
 using FY.Common;
+using FY.Common.Helper;
 
 namespace WebApiDemo.Cache
 {

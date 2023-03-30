@@ -6,13 +6,13 @@ using System.Linq;
 using System.Net.Http;
 using System.Net.Http.Json;
 using System.Threading.Tasks;
+using FY.Common.Helper;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using NLog;
 using StackExchange.Redis;
 using WebApiDemo.Cache;
-using WebApiDemo.Helper;
 
 namespace WebApiDemo.Controllers
 {
