@@ -1,12 +1,18 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Net.Http;
+using System.Net.Http.Json;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using NLog;
+using StackExchange.Redis;
+using WebApiDemo.Cache;
+using WebApiDemo.Helper;
 
 namespace WebApiDemo.Controllers
 {
@@ -55,11 +61,11 @@ namespace WebApiDemo.Controllers
         /// <summary>
         /// 表单提交文件
         /// </summary>
-        /// <param name="FaceImage">人脸图片</param>
+        /// <param name="itemfile">人脸图片</param>
         /// <param name="FaceDataRecord">人脸数据</param>
         /// <returns></returns>
         [HttpPost]
-        public ActionResult<String> Post([FromForm] IFormCollection FaceImage, [FromForm] string FaceDataRecord)
+        public ActionResult<String> Post([FromForm] IFormFile itemfile, [FromForm] string FaceDataRecord)
         {
             nlog.WithProperty("filename", "Debug").Log(NLog.LogLevel.Debug, $"测试测试Debug日志");
             nlog.WithProperty("filename", "Info").Log(NLog.LogLevel.Info, $"测试测试Info日志");
@@ -70,8 +76,8 @@ namespace WebApiDemo.Controllers
            
                 String filepath = @"G:\demo学习测试\新建文件夹";
 
-                FormFileCollection fileCollection = (FormFileCollection)FaceImage.Files;
-                foreach (IFormFile itemfile in fileCollection)
+                //FormFileCollection fileCollection = (FormFileCollection)FaceImage.Files;
+                //foreach (IFormFile itemfile in fileCollection)
                 {
                     StreamReader reader = new StreamReader(itemfile.OpenReadStream());
                     String content = reader.ReadToEnd();
@@ -100,5 +106,75 @@ namespace WebApiDemo.Controllers
             }
             return "测试的返回信息";
         }
+
+
+        [HttpGet]
+        public async Task<String> GetRedisAsync1([FromServices] ICacheAsync cache)
+        {
+
+            WriteLine("==============================");
+            WriteLine("测试异步加载redis");
+            WriteLine("==============================");
+            string redisKey = RedisConstant.LIMIT_LOGIN_ACCOUNT_KEY + DateTime.Now.ToString("yyyyMMddHHmm");
+
+            WriteLine($"查询reidis存在：key={redisKey}");
+            bool IsExist = await cache.ExistAsync(redisKey);
+            if (!IsExist)
+            {
+                WriteLine($"不存在创建：key={redisKey}");
+                await cache.SetAsync(redisKey, new MyText() { Name = "xxxx", Date = DateTime.Now }, null);
+                WriteLine($"创建完成：key={redisKey}");
+            }
+
+            MyText mytext = await cache.GetAsync<MyText>(redisKey);
+            WriteLine($"获取redis结果：key={redisKey}；value={JsonHelper.ObjToJson(mytext)}");
+
+            //await cache.RemoveAsync(redisKey);
+            //WriteLine($"删除redis完成：key={redisKey}");
+
+            return "测试的返回信息";
+        }
+
+        [HttpGet]
+        public ActionResult<String> GetRedis([FromServices] ICache cache)
+        {
+            WriteLine("==============================");
+            WriteLine("测试同步加载redis");
+            WriteLine("==============================");
+            string redisKey = RedisConstant.LIMIT_LOGIN_ACCOUNT_KEY + DateTime.Now.ToString("yyyyMMddHHmm");
+
+            WriteLine($"查询reidis存在：key={redisKey}");
+            bool IsExist = cache.Exist(redisKey);
+            if (!IsExist)
+            {
+                WriteLine($"不存在创建：key={redisKey}");
+                cache.Set(redisKey, new MyText() { Name = "xxxx", Date = DateTime.Now }, null);
+                WriteLine($"创建完成：key={redisKey}");
+            }
+
+            MyText mytext = cache.Get<MyText>(redisKey);
+            WriteLine($"获取redis结果：key={redisKey}；value={JsonHelper.ObjToJson(mytext)}");
+
+            //cache.Remove(redisKey);
+            //WriteLine($"删除redis完成：key={redisKey}");
+
+            return "测试的返回信息";
+        }
+
+    
+
+
+
+        private void WriteLine(string strText)
+        {
+            Console.WriteLine($"【{DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss.ffffff")}】{strText}");
+        }
+    }
+
+    public class MyText 
+    { 
+        public string Name { get; set; }
+
+        public DateTime Date { get; set; }
     }
 }

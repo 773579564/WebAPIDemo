@@ -4,29 +4,24 @@
         <name>WebApiDemo</name>
     </assembly>
     <members>
-        <member name="P:WebApiDemo.Config.Version">
+        <member name="T:WebApiDemo.Cache.RedisCacheSetup">
             <summary>
-            服务版本
+            Redis缓存 启动服务
             </summary>
         </member>
-        <member name="P:WebApiDemo.Config.VersionTime">
+        <member name="F:WebApiDemo.Cache.RedisConstant.MAIN_KEY">
             <summary>
-            服务发布时间
+            程序保存redis前缀
             </summary>
         </member>
-        <member name="P:WebApiDemo.Config.WebTitle">
+        <member name="F:WebApiDemo.Cache.RedisConstant.LIMIT_LOGIN_ACCOUNT_KEY">
             <summary>
-            服务主题
+            登录失败的账号次数
             </summary>
         </member>
-        <member name="P:WebApiDemo.Config.SubSystemName">
+        <member name="F:WebApiDemo.Cache.RedisConstant.LAST_SYNC_CDUI_TIME">
             <summary>
-            跨越访问
-            </summary>
-        </member>
-        <member name="P:WebApiDemo.Config.SwaggerUrl">
-            <summary>
-            访问url 默认未空字符串 全部请求可以访问
+            定时任务中上次同步时间
             </summary>
         </member>
         <member name="T:WebApiDemo.Controllers.WeatherForecastController">
@@ -46,37 +41,66 @@
             </summary>
             <returns></returns>
         </member>
-        <member name="M:WebApiDemo.Controllers.WeatherForecastController.Post(Microsoft.AspNetCore.Http.IFormCollection,System.String)">
+        <member name="M:WebApiDemo.Controllers.WeatherForecastController.Post(Microsoft.AspNetCore.Http.IFormFile,System.String)">
             <summary>
             表单提交文件
             </summary>
-            <param name="FaceImage">人脸图片</param>
+            <param name="itemfile">人脸图片</param>
             <param name="FaceDataRecord">人脸数据</param>
             <returns></returns>
         </member>
-        <member name="M:WebApiDemo.Startup.#ctor(Microsoft.Extensions.Configuration.IConfiguration)">
+        <member name="T:WebApiDemo.Filter.GlobalExceptionsFilter">
             <summary>
-            初始化对象，传入对应接口参数：
-            IHostingEnvironment 提供环境信息的 service
-            IConfiguration 提供读取config.表示一组键/值应用程序配置属性
-            ILoggerFactory 创建log对象.
-            IApplicationBuilder：是一个包含与当前环境相关的属性和方法的接口。它用于获取应用程序中的环境变量。
+            全局异常错误日志
             </summary>
-            <param name="configuration">提供读取config.</param>
         </member>
-        <member name="M:WebApiDemo.Startup.ConfigureServices(Microsoft.Extensions.DependencyInjection.IServiceCollection)">
+        <member name="M:WebApiDemo.Filter.GlobalExceptionsFilter.WriteLog(System.String,System.Exception)">
             <summary>
-            This method gets called by the runtime. Use this method to add services to the container.
-            在运行的时候被调用, 然后向IOC的容器中注入service
+            自定义返回格式
             </summary>
-            <param name="services"></param>
+            <param name="throwMsg"></param>
+            <param name="ex"></param>
+            <returns></returns>
         </member>
-        <member name="M:WebApiDemo.Startup.Configure(Microsoft.AspNetCore.Builder.IApplicationBuilder,Microsoft.AspNetCore.Hosting.IWebHostEnvironment)">
+        <member name="M:WebApiDemo.Helper.JsonHelper.ObjToJson(System.Object)">
             <summary>
-            通过Autofac扩展服务注册功能，在ConfigureServices之后执行
+            对象序列化
             </summary>
-            <param name="app"></param>
-            <param name="env"></param>
+            <param name="obj">对象</param>
+            <param name="isUseTextJson">是否使用textjson</param>
+            <returns>返回json字符串</returns>
+        </member>
+        <member name="M:WebApiDemo.Helper.JsonHelper.JsonToObj``1(System.String)">
+            <summary>
+            json反序列化obj
+            </summary>
+            <typeparam name="T">反序列类型</typeparam>
+            <param name="strJson">json</param>
+            <param name="isUseTextJson">是否使用textjson</param>
+            <returns>返回对象</returns>
+        </member>
+        <member name="M:WebApiDemo.Helper.JsonHelper.GetJSON``1(System.Object)">
+            <summary>
+            转换对象为JSON格式数据
+            </summary>
+            <typeparam name="T">类</typeparam>
+            <param name="obj">对象</param>
+            <returns>字符格式的JSON数据</returns>
+        </member>
+        <member name="M:WebApiDemo.Helper.SerializeHelper.Serialize(System.Object)">
+            <summary>
+            序列化
+            </summary>
+            <param name="item"></param>
+            <returns></returns>
+        </member>
+        <member name="M:WebApiDemo.Helper.SerializeHelper.Deserialize``1(System.Byte[])">
+            <summary>
+            反序列化
+            </summary>
+            <typeparam name="TEntity"></typeparam>
+            <param name="value"></param>
+            <returns></returns>
         </member>
     </members>
 </doc>

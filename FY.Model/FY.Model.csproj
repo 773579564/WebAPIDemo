@@ -1,0 +1,22 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="SqlSugarCore" Version="5.1.4.62" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\FY.Common\FY.Common.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="ViewModels\Param\" />
+    <Folder Include="ViewModels\Result\" />
+  </ItemGroup>
+
+</Project>
