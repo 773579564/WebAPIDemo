@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using FY.Common.Data;
 using Microsoft.Extensions.Logging;
 using SqlSugar;

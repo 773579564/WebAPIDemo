@@ -1,4 +1,4 @@
-using System;
+ï»¿using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -26,7 +26,7 @@ namespace WebApiDemo
         {
             var builder = WebApplication.CreateBuilder(args);
 
-            // 2¡¢ÅäÖÃ·şÎñ
+            // 2ã€é…ç½®æœåŠ¡
             //Config.Configuration = builder.Configuration;
             GlobalContext.LogWhenStart(builder.Environment);
             GlobalContext.HostingEnvironment = builder.Environment;
@@ -34,28 +34,28 @@ namespace WebApiDemo
             GlobalContext.SystemConfig = builder.Configuration.GetSection("SystemConfig").Get<SystemConfig>();
             GlobalContext.Services = builder.Services;
 
-            //×¢²áredis
+            //æ³¨å†Œredis
             builder.Services.AddRedisCacheSetup();
 
             builder.Services.AddControllers(o =>
             {
-                // È«¾ÖÒì³£¹ıÂË
+                // å…¨å±€å¼‚å¸¸è¿‡æ»¤
                 o.Filters.Add(typeof(Filter.GlobalExceptionsFilter));
             }) 
-            //MVCÈ«¾ÖÅäÖÃJsonĞòÁĞ»¯´¦Àí
+            //MVCå…¨å±€é…ç½®Jsonåºåˆ—åŒ–å¤„ç†
             .AddNewtonsoftJson(options =>
             {
-                //ºöÂÔÑ­»·ÒıÓÃ
+                //å¿½ç•¥å¾ªç¯å¼•ç”¨
                 options.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore;
-                //²»Ê¹ÓÃÍÕ·åÑùÊ½µÄkey
+                //ä¸ä½¿ç”¨é©¼å³°æ ·å¼çš„key
                 options.SerializerSettings.ContractResolver = new DefaultContractResolver();
-                //ÉèÖÃÊ±¼ä¸ñÊ½
+                //è®¾ç½®æ—¶é—´æ ¼å¼
                 options.SerializerSettings.DateFormatString = "yyyy-MM-dd HH:mm:ss";
-                //ºöÂÔModelÖĞÎªnullµÄÊôĞÔ
+                //å¿½ç•¥Modelä¸­ä¸ºnullçš„å±æ€§
                 //options.SerializerSettings.NullValueHandling = NullValueHandling.Ignore;
-                //ÉèÖÃ±¾µØÊ±¼ä¶ø·ÇUTCÊ±¼ä
+                //è®¾ç½®æœ¬åœ°æ—¶é—´è€ŒéUTCæ—¶é—´
                 options.SerializerSettings.DateTimeZoneHandling = DateTimeZoneHandling.Local;
-                //Ìí¼ÓEnum×ªstring
+                //æ·»åŠ Enumè½¬string
                 options.SerializerSettings.Converters.Add(new StringEnumConverter());
             });
 
@@ -72,14 +72,14 @@ namespace WebApiDemo
             }
             #endregion
 
-            //×¢²á£ºSystem.Text.Encoding.CodePages£»Ö§³ÖÆäËû±àÂëÓïÑÔ£ºGB2312¡¢GBK
+            //æ³¨å†Œï¼šSystem.Text.Encoding.CodePagesï¼›æ”¯æŒå…¶ä»–ç¼–ç è¯­è¨€ï¼šGB2312ã€GBK
             System.Text.Encoding.RegisterProvider(System.Text.CodePagesEncodingProvider.Instance);
 
             var app = builder.Build();
 
             if (builder.Environment.IsDevelopment())
             {
-                //¿ª·¢ÈËÔ±Òì³£Ò³ÖĞ¼ä¼ş , ±¨¸æÓ¦ÓÃÔËĞĞÊ±´íÎó
+                //å¼€å‘äººå‘˜å¼‚å¸¸é¡µä¸­é—´ä»¶ , æŠ¥å‘Šåº”ç”¨è¿è¡Œæ—¶é”™è¯¯
                 app.UseDeveloperExceptionPage();
             }
             else
@@ -89,7 +89,7 @@ namespace WebApiDemo
 
             //if (Config.SwaggerIsUse)
             {
-                // Ìí¼ÓSwaggerÓĞ¹ØÖĞ¼ä¼ş
+                // æ·»åŠ Swaggeræœ‰å…³ä¸­é—´ä»¶
                 app.UseSwagger().UseSwaggerUI(c =>
                 {
                     c.SwaggerEndpoint("/swagger/v1/swagger.json", "API Demo v1");
@@ -97,17 +97,17 @@ namespace WebApiDemo
             }
 
 
-            //Routing,Â·ÓÉ£¬¶Ô UseEndpoints ¹æÔò½øĞĞÆ¥Åä£¬ÖĞ¼ä¿ÉÒÔ¼ÓÈëÏà¹Ø¼øÈ¨´¦Àí
+            //Routing,è·¯ç”±ï¼Œå¯¹ UseEndpoints è§„åˆ™è¿›è¡ŒåŒ¹é…ï¼Œä¸­é—´å¯ä»¥åŠ å…¥ç›¸å…³é‰´æƒå¤„ç†
             app.UseRouting();
 
-            // ÏÈ¿ªÆôÈÏÖ¤
+            // å…ˆå¼€å¯è®¤è¯
             app.UseAuthentication();
 
-            //ÊÚÈ¨ÖĞ¼ä¼ş
+            //æˆæƒä¸­é—´ä»¶
             app.UseAuthorization();
 
 
-            //¶¨ÒåÂ·ÓÉ¹æÔò
+            //å®šä¹‰è·¯ç”±è§„åˆ™
             app.UseEndpoints(endpoints =>
             {
                 //endpoints.MapControllerRoute(

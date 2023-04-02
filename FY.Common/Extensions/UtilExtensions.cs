@@ -5,7 +5,7 @@ using System.Globalization;
 
 namespace FY.Common.Extensions
 {
-    public static class UtilConvert
+    public static class UtilExtensions
     {
 
         /// <summary>
@@ -198,7 +198,7 @@ namespace FY.Common.Extensions
                 case "0":
                 case "false":
                 case "否":
-                    return true;
+                    return false;
             }
 
             return errorValue;

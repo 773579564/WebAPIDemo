@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Reflection;
 using System.Text;
@@ -13,15 +14,38 @@ namespace FY.Common.Extensions
     public static class EnumExtensions
     {
         /// <summary>
-        /// 获取枚举项上的<see cref="DescriptionAttribute"/>特性的文字描述
+        /// 获取到对应枚举的描述-没有描述信息，返回枚举值
         /// </summary>
-        /// <param name="value"></param>
+        /// <param name="enum"></param>
         /// <returns></returns>
-        public static string ToDescription(this Enum value)
+        public static string EnumDescription(this Enum @enum)
         {
-            Type type = value.GetType();
-            MemberInfo member = type.GetMember(value.ToString()).FirstOrDefault();
-            return member != null ? member.GetDescription() : value.ToString();
+            Type type = @enum.GetType();
+            string name = Enum.GetName(type, @enum);
+            if (name == null)
+            {
+                return null;
+            }
+            FieldInfo field = type.GetField(name);
+            if (!(Attribute.GetCustomAttribute(field, typeof(DescriptionAttribute)) is DescriptionAttribute attribute))
+            {
+                return name;
+            }
+            return attribute?.Description;
         }
+        public static int ToEnumInt(this Enum e)
+        {
+            try
+            {
+                return e.GetHashCode();
+            }
+            catch (Exception)
+            {
+                return 0;
+            }
+        }
+
     }
+
+
 }

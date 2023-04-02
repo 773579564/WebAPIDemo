@@ -1,4 +1,4 @@
-﻿using FY.Common;
+using FY.Common;
 using FY.IRepository.Base;
 using FY.Model;
 using SqlSugar;
