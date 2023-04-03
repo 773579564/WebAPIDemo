@@ -1,4 +1,5 @@
-﻿using System;
+using System;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -27,5 +28,30 @@ namespace FY.Common.Helper
                 LogHelper.Error(ex);
             }
         }
+
+
+        public static async void StartTask(Dictionary<string, string> keyValuePairs)
+        {
+            Task task1 = Task.Run(async () =>
+            {
+                ConcurrentDictionary<string, StringBuilder> keyValues = new ConcurrentDictionary<string, StringBuilder>();
+                await Task.Delay(100);
+                Parallel.ForEach(keyValuePairs, async v =>
+                {
+                    keyValues[v.Key] = new StringBuilder();
+                    await HttpClientHelper.PostAsync(v.Key, v.Value, keyValues[v.Key]);
+                    await Task.Delay(30);
+                });
+
+                foreach (var v in keyValues)
+                {
+                    LogHelper.Error(v.Value);
+                }
+            });
+
+            task1.Wait();
+
+        }
+
     }
 }

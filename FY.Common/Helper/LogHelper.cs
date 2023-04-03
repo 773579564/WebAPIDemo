@@ -101,7 +101,7 @@ namespace FY.Common.Helper
             }
         }
 
-        private static string GetExceptionMessage(Exception ex)
+        public static string GetExceptionMessage(Exception ex)
         {
             string message = string.Empty;
             if (ex != null)
